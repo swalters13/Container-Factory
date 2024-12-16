@@ -1,0 +1,13 @@
+FROM python:3.12-bookworm
+LABEL org.opencontainers.image.source="https://github.com/swalters13/Container-Factory"
+LABEL version="1.0"
+LABEL description="This is an image based on the Python 3.12 official image with custom packages installed."
+
+RUN apt update
+RUN apt upgrade
+
+RUN pip install azure
+RUN pip install plotly
+RUN pip install pandas
+RUN pip install Pygithub
+RUN pip install scikit-learn
