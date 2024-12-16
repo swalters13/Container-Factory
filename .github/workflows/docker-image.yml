@@ -11,13 +11,17 @@ jobs:
   build:
 
     runs-on: [self-hosted, Linux, X64, Docker]
-
+    env:
+      imageName: azure-python:$(date +%s)
     steps:
     - name: Checkout repo
       uses: actions/checkout@v4
     
     - name: Build the Docker image
-      run: sudo docker build . --file docker/DockerFile --tag azure-python:$(date +%s)
+      run: sudo docker build . --file docker/DockerFile --tag $imageName
 
+    - name: Tag the image to ACR
+      run: docker tag python:3.12-bookworm lottoregistry.azurecr.io/$imageName
+      
     - name: Upload the container to Azure container registry
-      run: sudo docker push lottoregistry.azurecr.io/azure-python:$(date +%s)
+      run: sudo docker push lottoregistry.azurecr.io/$imageName
