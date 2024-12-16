@@ -16,15 +16,8 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v4
     
-    - name: Check environment
-      run: |
-          pwd
-          ls -la
-          cd docker
-          ls -la
-
     - name: Build the Docker image
-      run: sudo docker build . --file Dockerfile --tag azure-python:$(date +%s)
+      run: sudo docker build . --file docker/DockerFile --tag azure-python:$(date +%s)
 
     - name: Upload the container to Azure container registry
       run: sudo docker push lottoregistry.azurecr.io/azure-python:$(date +%s)
