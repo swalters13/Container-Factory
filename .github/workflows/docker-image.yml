@@ -17,10 +17,7 @@ jobs:
       uses: actions/checkout@v4
     
     - name: Build the Docker image
-      run: sudo docker build . --file docker/DockerFile --tag azure-python:$(date +%s)
-
-    - name: Tag the image to ACR
-      run: sudo docker tag azure-python:$(date +%s) lottoregistry.azurecr.io/azure-python:$(date +%s)
+      run: sudo docker build . --file docker/DockerFile --tag lottoregistry.azurecr.io/azure-python:$(date +%s)
 
     - name: Upload the container to Azure container registry
       run: sudo docker push lottoregistry.azurecr.io/azure-python:$(date +%s)
