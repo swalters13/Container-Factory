@@ -13,8 +13,14 @@ jobs:
     runs-on: [self-hosted, Linux, X64, Docker]
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repo
+      uses: actions/checkout@v4
+    
+    - name: Check environment
+      run: ls -la
+      
     - name: Build the Docker image
       run: sudo docker build . --file docker/Dockerfile --tag azure-python:$(date +%s)
+
     - name: Upload the container to Azure container registry
       run: sudo docker push lottoregistry.azurecr.io/azure-python:$(date +%s)
